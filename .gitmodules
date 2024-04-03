@@ -1,0 +1,6 @@
+[submodule "include/imgparse"]
+	path = include/imgparse
+	url = https://github.com/pillows/imgparse
+[submodule "include/AES"]
+	path = include/AES
+	url = https://github.com/SeaniaTwix/AES
