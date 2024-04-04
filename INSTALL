@@ -1,0 +1,2 @@
+brew install nlohmann-json
+brew install boost

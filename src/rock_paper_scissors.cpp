@@ -10,7 +10,8 @@
 #endif
 
 #include "fixed_loop.hpp"
-
+#include "util/Request.hpp"
+// #include "screens/loading.hpp"
 namespace rps {
 
 /**
@@ -43,9 +44,13 @@ struct Resources {
     raylib::Image paper_image;
     raylib::Image scissors_image;
 
+    raylib::Image basic_cursor_image;
+
     raylib::Texture2D rock_texture;
     raylib::Texture2D paper_texture;
     raylib::Texture2D scissors_texture;
+
+    raylib::Texture2D basic_cursor_texture;
 };
 
 /**
@@ -418,6 +423,21 @@ static Resources init_resources(int piece_size)
     std::filesystem::path res_path = std::filesystem::path(GetApplicationDirectory()) / "res";
 #endif
 
+    RequestIMG request;
+    // strings work. cool.
+
+
+    // UI/BigBang/Basic.img does not work
+    // UI/Basic.img does not work
+    // UI/Basic2_notsure.img does not work
+    // UI/Basic2.img does not work
+
+    // KEEP THIS
+    // https://scribbles-public.s3.amazonaws.com/tutorial/00/UI/Basic88.img
+    // BASIC88 WORKS NOTHING ELSE FUCKING WORKS
+    request.fetchFile("https://scribbles-public.s3.amazonaws.com/tutorial/00/UI/Basic88.img", "UI/Basic.img");
+
+    // raylib::Image cursor_image((res_path / "cursor.png").string());
     raylib::Image rock_image((res_path / "rock.png").string());
     raylib::Image paper_image((res_path / "paper.png").string());
     raylib::Image scissors_image((res_path / "scissors.png").string());
@@ -432,6 +452,7 @@ static Resources init_resources(int piece_size)
         .scissors_image = scissors_image,
     };
 
+    
     update_resources_piece_size(res, piece_size);
 
     return res;
@@ -724,6 +745,10 @@ static void main_loop(void* game_state_ptr)
 
 void run(const RockPaperScissorsConfig& config)
 {
+    // Loading loading;
+    std::cout << "Loading screen" << std::endl;
+    // loading.fetchInitialFiles();
+    std::cout << "Finished loading screen" << std::endl;
     GameState game_state {};
 
     game_state.config = config;
